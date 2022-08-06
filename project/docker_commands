@@ -5,7 +5,43 @@ docker build -t techtrends .
 docker run --name techtrends-app -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
-# TODO: insert the docker logs command
+docker logs techtrends-app
 
 ## Logs from the container running the TechTrends application
-# TODO: paste logs from the Docker container 
+echtrends-app
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+WARNING:2022-08-06 16:01:32,143,  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:2022-08-06 16:01:32,143,  * Running on http://172.17.0.3:3111/ (Press CTRL+C to quit)
+INFO:2022-08-06 16:01:53,252, 172.17.0.1 - - [06/Aug/2022 16:01:53] "GET / HTTP/1.1" 200 -
+INFO:2022-08-06 16:01:53,270, 172.17.0.1 - - [06/Aug/2022 16:01:53] "GET /static/css/main.css HTTP/1.1" 200 -
+INFO:2022-08-06 16:01:53,399, 172.17.0.1 - - [06/Aug/2022 16:01:53] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:2022-08-06 16:01:57,875, Article "2020 CNCF Annual Report" retrieved!
+INFO:2022-08-06 16:01:57,878, 172.17.0.1 - - [06/Aug/2022 16:01:57] "GET /1 HTTP/1.1" 200 -
+INFO:2022-08-06 16:01:57,900, 172.17.0.1 - - [06/Aug/2022 16:01:57] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:2022-08-06 16:02:04,795, 172.17.0.1 - - [06/Aug/2022 16:02:04] "GET /healthz HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:10,999, 172.17.0.1 - - [06/Aug/2022 16:02:10] "GET /metrics HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:19,519, 172.17.0.1 - - [06/Aug/2022 16:02:19] "GET / HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:19,540, 172.17.0.1 - - [06/Aug/2022 16:02:19] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:2022-08-06 16:02:21,196, Article "KubeCon + CloudNativeCon 2021" retrieved!
+INFO:2022-08-06 16:02:21,197, 172.17.0.1 - - [06/Aug/2022 16:02:21] "GET /2 HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:21,220, 172.17.0.1 - - [06/Aug/2022 16:02:21] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:2022-08-06 16:02:23,718, About Us page retrieved!
+INFO:2022-08-06 16:02:23,726, 172.17.0.1 - - [06/Aug/2022 16:02:23] "GET /about HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:23,774, 172.17.0.1 - - [06/Aug/2022 16:02:23] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:2022-08-06 16:02:29,644, 172.17.0.1 - - [06/Aug/2022 16:02:29] "GET /create HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:29,665, 172.17.0.1 - - [06/Aug/2022 16:02:29] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:2022-08-06 16:02:44,081, New Article "<<test>>" created!
+INFO:2022-08-06 16:02:44,081, 172.17.0.1 - - [06/Aug/2022 16:02:44] "POST /create HTTP/1.1" 302 -
+INFO:2022-08-06 16:02:44,085, 172.17.0.1 - - [06/Aug/2022 16:02:44] "GET / HTTP/1.1" 200 -
+INFO:2022-08-06 16:02:44,105, 172.17.0.1 - - [06/Aug/2022 16:02:44] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:2022-08-06 21:28:47,670, 172.17.0.1 - - [06/Aug/2022 21:28:47] "GET / HTTP/1.1" 200 -
+INFO:2022-08-06 21:28:47,689, 172.17.0.1 - - [06/Aug/2022 21:28:47] "GET /static/css/main.css HTTP/1.1" 200 -
+INFO:2022-08-06 21:28:47,790, 172.17.0.1 - - [06/Aug/2022 21:28:47] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:2022-08-06 21:30:46,503, 172.17.0.1 - - [06/Aug/2022 21:30:46] "GET / HTTP/1.1" 200 -
+INFO:2022-08-06 21:30:46,530, 172.17.0.1 - - [06/Aug/2022 21:30:46] "GET /static/css/main.css HTTP/1.1" 304 -
+
