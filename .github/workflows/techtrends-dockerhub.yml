@@ -34,4 +34,4 @@ jobs:
           file: ./project/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: akbarbayati/techtrends:latest
+          tags: akbayati/techtrends:latest
