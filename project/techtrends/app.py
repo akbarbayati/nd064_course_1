@@ -1,22 +1,24 @@
 import sqlite3
 import logging
-
+import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
-db_connection_count = 0
-
-logging.basicConfig(format='%(levelname)s:%(asctime)s, %(message)s', level=logging.INFO)
-logger = logging.getLogger(__name__)
+stdout_handler =  logging.StreamHandler(sys.stdout)
+stderr_handler =  logging.StreamHandler(sys.stderr) 
+handlers = [stderr_handler, stdout_handler]
+logging.basicConfig(format='%(levelname)s:%(asctime)s, %(message)s', level=logging.DEBUG, handlers=handlers)
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
-    global db_connection_count
-    connection = sqlite3.connect('database.db')
-    connection.row_factory = sqlite3.Row
-    db_connection_count = db_connection_count + 1
-    return connection
+    try:
+        connection = sqlite3.connect('file:database.db?mode=rw', uri=True)
+        connection.row_factory = sqlite3.Row
+        app.config['db_connection_count'] += 1
+        return connection
+    except sqlite3.Error as err:
+        logging.exception(err)
 
 # Function to get a post using its ID
 def get_post(post_id):
@@ -29,6 +31,7 @@ def get_post(post_id):
 # Define the Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
+app.config['db_connection_count'] = 0
 
 # Define the main route of the web application 
 @app.route('/')
@@ -52,11 +55,10 @@ def health():
 # Define the metrics route of the web application 
 @app.route('/metrics')
 def metrics():
-    global db_connection_count
     connection = get_db_connection()
     post_count = connection.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
     connection.close()
-    data = {"db_connection_count": db_connection_count, "post_count": post_count}
+    data = {"db_connection_count": app.config['db_connection_count'], "post_count": post_count}
     response = app.response_class(
         response=json.dumps(data),
         status=200,
@@ -70,16 +72,16 @@ def metrics():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      logger.info('Article with id {} does not exist!'.format(post_id))
+      logging.info('Article with id {} does not exist!'.format(post_id))
       return render_template('404.html'), 404
     else:
-      logger.info('Article \"{}\" retrieved!'.format(post["title"]))
+      logging.info('Article \"{}\" retrieved!'.format(post["title"]))
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
-    logger.info('About Us page retrieved!')
+    logging.info('About Us page retrieved!')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -98,7 +100,7 @@ def create():
             connection.commit()
             connection.close()
         
-            logger.info('New Article \"{}\" created!'.format(title))
+            logging.info('New Article \"{}\" created!'.format(title))
 
             return redirect(url_for('index'))
 
